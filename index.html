@@ -8,7 +8,7 @@
   :root{
     --navy:#14213D; --navy-soft:#1d2f56; --bronze:#A9772F; --bronze-soft:#c69a54;
     --bg:#f4f5f7; --card:#ffffff; --line:#e3e6ec; --ink:#1c2536; --muted:#6b7280;
-    --green:#1f7a4d; --amber:#9a6a00; --lock:#8a91a0;
+    --green:#1f7a4d; --amber:#9a6a00; --todo:#8a91a0;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
@@ -33,13 +33,14 @@
   .b-docx{background:#e7effb;color:#1d4ea8}
   .b-xlsx{background:#e6f4ec;color:#1f7a4d}
   .b-pptx{background:#fbeee2;color:#b3641b}
+  .b-pdf{background:#fbe9e7;color:#b3261e}
   .b-doc{background:#eef0f4;color:#5b6474}
   .card p{font-size:12.3px;color:var(--muted);margin-top:8px}
   .card .foot{margin-top:11px;font-size:11px;color:#98a0b0;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .st{font-weight:700;display:inline-flex;align-items:center;gap:5px}
-  .st.done{color:var(--green)} .st.prog{color:var(--amber)}
+  .st.done{color:var(--green)} .st.prog{color:var(--amber)} .st.todo{color:var(--todo)}
   .st .dot{width:8px;height:8px;border-radius:50%}
-  .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)}
+  .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)} .st.todo .dot{background:var(--todo)}
   .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
   .tbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
   .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
@@ -55,7 +56,7 @@
   <p>Central de entregáveis do projeto, organizada por fase (PMBOK). Cada card abre o documento no Monday (requer login). Esta capa é pública e não contém dados confidenciais — apenas direciona para os itens protegidos.</p>
   <div class="meta-bar">
     <span>Entregáveis: <b id="count">—</b></span>
-    <span>Atualização: <b>Julho/2026</b></span>
+    <span>Atualização: <b>20/07/2026</b></span>
     <span>PMO: <b>Vanessa Costa</b></span>
   </div>
 </header>
@@ -78,61 +79,59 @@
 <footer>Mr. Cat &middot; PMO — Vanessa Costa &middot; Portal do Projeto Mudança de PDV</footer>
 
 <script>
-/* Base dos itens no Monday (board Projeto: Mudança de PDV) */
 const B = "https://mr-cat-squadhub.monday.com/boards/18418008224/pulses/";
-
-/* Entregáveis — sem dados confidenciais. "done"=pronto, "prog"=em produção. */
+/* Estado espelhado do Monday em 20/07/2026. st: done=Feito, prog=Em progresso, todo=Não iniciado */
 const DOCS = [
-  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC",  cls:"b-doc",  st:"prog", area:"Projetos",
+  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
     desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
 
-  {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"done", area:"Planejamento",
+  {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
     desc:"Escopo formal: objetivos, entregas, exclusões, premissas e restrições do projeto."},
-  {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Planejamento",
+  {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
     desc:"EAP em pacotes de trabalho, derivada do board de tarefas. Diagrama editável."},
-  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
     desc:"Responsabilidades por entrega: Responsável, Aprovador, Consultado, Informado."},
   {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
     desc:"Identificação, avaliação e planos de resposta aos riscos do projeto."},
   {sec:"pla", code:"DOC06", id:"12581994047", titulo:"Base de Lojas – Gerentes e Sistemas", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Cadastro · TI",
     desc:"Base de lojas (gerentes) e listagem de sistemas por loja — base para rollout, integração e migração."},
-  {sec:"pla", code:"DOC18", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Financeiro · Cadastro",
+  {sec:"pla", code:"DOC18", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos · TI",
     desc:"Base de lojas com o custo atual do Alterdata pago por cada loja — linha de base para comparação de custos."},
-  {sec:"pla", code:"DOC19", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Projetos",
-    desc:"Mapeamento dos usuários/participantes do projeto: áreas, papéis e contatos envolvidos."},
+  {sec:"pla", code:"DOC19", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos",
+    desc:"Mapeamento dos participantes do projeto por frente, com Key Users, áreas e papéis."},
 
-  {sec:"aqu", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Compras",
+  {sec:"aqu", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
     desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
-  {sec:"aqu", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Comercial",
+  {sec:"aqu", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
     desc:"Recorte da avaliação com foco nas categorias comerciais."},
-  {sec:"aqu", code:"DOC10", id:"12581865515", titulo:"Histórico de Propostas – Fornecedor", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Compras",
-    desc:"Histórico de propostas comerciais recebidas. Documento de apoio à negociação."},
-  {sec:"aqu", code:"DOC13", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos · Diretoria",
+  {sec:"aqu", code:"DOC10", id:"12581865515", titulo:"Histórico de Propostas – Fornecedor", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
+    desc:"Propostas comerciais recebidas dos fornecedores. Documento de apoio à negociação."},
+  {sec:"aqu", code:"DOC13", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
     desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
-  {sec:"aqu", code:"DOC15", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Financeiro · Comercial",
+  {sec:"aqu", code:"DOC15", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
     desc:"Cenários de custo com o valor total para o franqueado, apoio à decisão comercial e de contratação."},
-  {sec:"aqu", code:"DOC16", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
-    desc:"Ata do benchmarking com contato da Veja sobre experiência de PDV/sistema."},
-  {sec:"aqu", code:"DOC17", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Locctane", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
-    desc:"Ata do benchmarking com contato da Locctane sobre experiência de PDV/sistema."},
+  {sec:"aqu", code:"DOC16", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Veja)."},
+  {sec:"aqu", code:"DOC17", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
 
   {sec:"exe", code:"DOC11", id:"12581866115", titulo:"Mapa de Integrações", tipo:"PPTX", cls:"b-pptx", st:"done", area:"TI · Projetos",
     desc:"Fluxo de integrações entre o novo PDV e os sistemas da empresa. Shapes nativos editáveis."},
-  {sec:"exe", code:"DOC14", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
+  {sec:"exe", code:"DOC14", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"todo", area:"Projetos",
     desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
 
-  {sec:"mon", code:"DOC12", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+  {sec:"mon", code:"DOC12", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
     desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
 
+const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
 DOCS.forEach(d => {
   const a = document.createElement("a");
   a.className = "card"; a.href = B + d.id; a.target = "_blank"; a.rel = "noopener";
-  const stTxt = d.st === "done" ? "Feito" : "Em progresso";
   a.innerHTML =
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+stTxt+'</span><span>'+d.area+'</span><span>↗ Abrir no Monday</span></div>';
+    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>↗ Abrir no Monday</span></div>';
   document.getElementById(d.sec).appendChild(a);
 });
 document.getElementById("count").textContent = DOCS.length;
