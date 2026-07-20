@@ -128,7 +128,7 @@ const DOCS = [
 DOCS.forEach(d => {
   const a = document.createElement("a");
   a.className = "card"; a.href = B + d.id; a.target = "_blank"; a.rel = "noopener";
-  const stTxt = d.st === "done" ? "Pronto" : "Em progresso";
+  const stTxt = d.st === "done" ? "Feito" : "Em progresso";
   a.innerHTML =
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
