@@ -15,32 +15,35 @@
   header{background:linear-gradient(135deg,var(--navy),var(--navy-soft));color:#fff;padding:38px 48px 30px}
   header .kicker{color:var(--bronze-soft);font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600}
   header h1{font-size:27px;font-weight:700;margin-top:6px}
-  header p{color:#c8cede;margin-top:8px;font-size:14px;max-width:760px}
+  header p{color:#c8cede;margin-top:8px;font-size:14px;max-width:780px}
   .meta-bar{display:flex;gap:28px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:#aeb6cb}
   .meta-bar b{color:#fff;font-weight:600}
-  main{max-width:1060px;margin:0 auto;padding:34px 24px 60px}
-  .notice{background:#fff8e8;border:1px solid #f0dca6;border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;font-size:12.7px;color:#7a5b00;margin-bottom:26px}
-  .phase{margin-bottom:34px}
+  main{max-width:1080px;margin:0 auto;padding:34px 24px 60px}
+  .phase{margin-bottom:32px}
   .phase-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:18px}
-  .phase-head .num{background:var(--navy);color:#fff;width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
-  .phase-head h2{font-size:17px;color:var(--navy);font-weight:700}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-  .card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:10px;padding:16px 18px;transition:.15s;position:relative}
+  .phase-head .num{background:var(--navy);color:#fff;min-width:26px;height:26px;padding:0 7px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .phase-head h2{font-size:16.5px;color:var(--navy);font-weight:700}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:15px}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:10px;padding:15px 17px;transition:.15s}
   a.card:hover{box-shadow:0 6px 18px rgba(20,33,61,.12);transform:translateY(-2px);border-left-color:var(--navy)}
   .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-  .card h3{font-size:14.5px;color:var(--navy);font-weight:700;line-height:1.35}
-  .badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+  .card .code{font-size:10.5px;font-weight:700;color:var(--bronze);letter-spacing:.5px}
+  .card h3{font-size:14px;color:var(--navy);font-weight:700;line-height:1.35;margin-top:2px}
+  .badge{font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:20px;white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
   .b-docx{background:#e7effb;color:#1d4ea8}
   .b-xlsx{background:#e6f4ec;color:#1f7a4d}
   .b-pptx{background:#fbeee2;color:#b3641b}
-  .card p{font-size:12.7px;color:var(--muted);margin-top:9px}
-  .card .foot{margin-top:12px;font-size:11.5px;color:#98a0b0;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .open{font-weight:700;color:var(--green)}
-  .card.locked{border-left-color:var(--lock);opacity:.9;cursor:not-allowed}
-  .card.locked .open{color:var(--lock)}
-  .hist{background:#eceef2;border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-top:8px}
-  .hist h2{font-size:15px;color:var(--navy);margin-bottom:6px}
-  .hist p{font-size:12.7px;color:var(--muted)}
+  .b-doc{background:#eef0f4;color:#5b6474}
+  .card p{font-size:12.3px;color:var(--muted);margin-top:8px}
+  .card .foot{margin-top:11px;font-size:11px;color:#98a0b0;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .st{font-weight:700;display:inline-flex;align-items:center;gap:5px}
+  .st.done{color:var(--green)} .st.prog{color:var(--amber)}
+  .st .dot{width:8px;height:8px;border-radius:50%}
+  .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)}
+  .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+  .tbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
+  .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
+  .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
   footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px;border-top:1px solid var(--line)}
   @media(max-width:640px){header{padding:26px 22px}}
 </style>
@@ -49,7 +52,7 @@
 <header>
   <div class="kicker">Mr. Cat &middot; PMO — Gestão de Projetos</div>
   <h1>Projeto Mudança de PDV — Portal do Projeto</h1>
-  <p>Central de acesso aos entregáveis do projeto, organizados por fase (PMBOK). Clique em um card para abrir o documento no repositório com login. Documentos confidenciais ficam protegidos; esta capa apenas direciona para eles.</p>
+  <p>Central de entregáveis do projeto, organizada por fase (PMBOK). Cada card abre o documento no Monday (requer login). Esta capa é pública e não contém dados confidenciais — apenas direciona para os itens protegidos.</p>
   <div class="meta-bar">
     <span>Entregáveis: <b id="count">—</b></span>
     <span>Atualização: <b>Julho/2026</b></span>
@@ -58,91 +61,81 @@
 </header>
 
 <main>
-  <div class="notice" id="setupNotice">
-    ⚙️ <b>Configuração pendente:</b> alguns cards ainda estão sem link. Edite o bloco <code>LINKS</code> no topo do arquivo <code>index.html</code> e cole o endereço de cada documento (SharePoint / OneDrive / Monday). Cards sem link aparecem como 🔒 bloqueado.
+  <div class="toolbar">
+    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener">📅 Cronograma &amp; Progresso (Monday)</a>
+    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener">🗂️ Board completo do projeto</a>
+    <a class="tbtn" href="https://github.com/Varejonline/api/wiki" target="_blank" rel="noopener">🔌 VarejOnline — API (Integração)</a>
+    <a class="tbtn" href="https://varejonline.movidesk.com/kb/pt-br" target="_blank" rel="noopener">💬 VarejOnline — Central de Ajuda</a>
   </div>
 
-  <section class="phase">
-    <div class="phase-head"><span class="num">1</span><h2>Planejamento — Escopo e Estrutura Analítica</h2></div>
-    <div class="grid" id="fase1"></div>
-  </section>
-
-  <section class="phase">
-    <div class="phase-head"><span class="num">2</span><h2>Seleção de Fornecedores — Avaliação e Custos</h2></div>
-    <div class="grid" id="fase2"></div>
-  </section>
-
-  <section class="phase">
-    <div class="phase-head"><span class="num">3</span><h2>Arquitetura e Integrações</h2></div>
-    <div class="grid" id="fase3"></div>
-  </section>
-
-  <section class="phase">
-    <div class="phase-head"><span class="num">4</span><h2>Material de Apoio e Capacitação</h2></div>
-    <div class="grid" id="fase4"></div>
-  </section>
-
-  <div class="hist">
-    <h2>📁 Histórico de Versões</h2>
-    <p>As versões anteriores dos documentos ficam preservadas no repositório com login, na pasta <b>_Histórico de Versões</b>. Não use como referência corrente.</p>
-  </div>
+  <section class="phase"><div class="phase-head"><span class="num">1</span><h2>Iniciação</h2></div><div class="grid" id="ini"></div></section>
+  <section class="phase"><div class="phase-head"><span class="num">2</span><h2>Planejamento</h2></div><div class="grid" id="pla"></div></section>
+  <section class="phase"><div class="phase-head"><span class="num">3</span><h2>Aquisições — Seleção de Fornecedores</h2></div><div class="grid" id="aqu"></div></section>
+  <section class="phase"><div class="phase-head"><span class="num">4</span><h2>Execução — Integrações</h2></div><div class="grid" id="exe"></div></section>
+  <section class="phase"><div class="phase-head"><span class="num">5</span><h2>Monitoramento &amp; Controle</h2></div><div class="grid" id="mon"></div></section>
 </main>
 
-<footer>
-  Mr. Cat &middot; PMO — Vanessa Costa &middot; Portal do Projeto Mudança de PDV
-</footer>
+<footer>Mr. Cat &middot; PMO — Vanessa Costa &middot; Portal do Projeto Mudança de PDV</footer>
 
 <script>
-/* ============================================================
-   CONFIGURAÇÃO DOS LINKS  —  edite apenas os endereços abaixo.
-   Cole o link de compartilhamento de cada documento (SharePoint,
-   OneDrive ou Monday). Deixe "" para manter o card bloqueado (🔒).
-   ============================================================ */
-const LINKS = {
-  escopo:        "",   // [PLA01] Declaração de Escopo (.docx)
-  eap:           "",   // [PLA02] EAP (.pptx)
-  consolidado:   "",   // Consolidado Avaliação de Fornecedores (.xlsx)
-  comercial:     "",   // Recorte Comercial (.xlsx)
-  propostas:     "",   // Histórico de Propostas — Fornecedor (.xlsx)
-  integracoes:   "",   // Mapa de Integrações editável (.pptx)
-  aula:          ""    // Aula — Fundamentos da Mudança de PDV (.docx)
-};
+/* Base dos itens no Monday (board Projeto: Mudança de PDV) */
+const B = "https://mr-cat-squadhub.monday.com/boards/18418008224/pulses/";
 
-/* ---- Metadados dos entregáveis (sem dados confidenciais) ---- */
+/* Entregáveis — sem dados confidenciais. "done"=pronto, "prog"=em produção. */
 const DOCS = [
-  {fase:"fase1", key:"escopo",      titulo:"[PLA01] Declaração de Escopo",              tipo:"DOCX", cls:"b-docx", meta:"Word · 15/07/2026",
-    desc:"Declaração formal de escopo: objetivos, entregas, exclusões, premissas e restrições do projeto."},
-  {fase:"fase1", key:"eap",         titulo:"[PLA02] EAP — Estrutura Analítica",         tipo:"PPTX", cls:"b-pptx", meta:"PowerPoint · 17/07/2026",
-    desc:"Estrutura analítica em pacotes de trabalho, derivada do board de tarefas no Monday.com. Diagrama editável."},
-  {fase:"fase2", key:"consolidado", titulo:"Consolidado — Avaliação de Fornecedores",   tipo:"XLSX", cls:"b-xlsx", meta:"Excel · 20/07/2026",
-    desc:"Planilha-mestre da avaliação: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
-  {fase:"fase2", key:"comercial",   titulo:"Consolidado — Recorte Comercial",           tipo:"XLSX", cls:"b-xlsx", meta:"Excel · 20/07/2026",
+  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC",  cls:"b-doc",  st:"prog", area:"Projetos",
+    desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
+
+  {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"done", area:"Planejamento",
+    desc:"Escopo formal: objetivos, entregas, exclusões, premissas e restrições do projeto."},
+  {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Planejamento",
+    desc:"EAP em pacotes de trabalho, derivada do board de tarefas. Diagrama editável."},
+  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+    desc:"Responsabilidades por entrega: Responsável, Aprovador, Consultado, Informado."},
+  {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+    desc:"Identificação, avaliação e planos de resposta aos riscos do projeto."},
+  {sec:"pla", code:"DOC06", id:"12581994047", titulo:"Base de Lojas – Gerentes e Sistemas", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Cadastro · TI",
+    desc:"Base de lojas (gerentes) e listagem de sistemas por loja — base para rollout, integração e migração."},
+  {sec:"pla", code:"DOC18", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Financeiro · Cadastro",
+    desc:"Base de lojas com o custo atual do Alterdata pago por cada loja — linha de base para comparação de custos."},
+  {sec:"pla", code:"DOC19", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Projetos",
+    desc:"Mapeamento dos usuários/participantes do projeto: áreas, papéis e contatos envolvidos."},
+
+  {sec:"aqu", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Compras",
+    desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
+  {sec:"aqu", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Comercial",
     desc:"Recorte da avaliação com foco nas categorias comerciais."},
-  {fase:"fase2", key:"propostas",   titulo:"Histórico de Propostas — Fornecedor",       tipo:"XLSX", cls:"b-xlsx", meta:"Excel · 20/07/2026",
-    desc:"Registro do histórico de propostas comerciais recebidas. Documento de apoio à negociação."},
-  {fase:"fase3", key:"integracoes", titulo:"Mapa de Integrações (editável)",            tipo:"PPTX", cls:"b-pptx", meta:"PowerPoint · 14/07/2026",
-    desc:"Diagrama do fluxo de integrações entre o novo PDV e os sistemas da empresa. Shapes nativos editáveis."},
-  {fase:"fase4", key:"aula",        titulo:"Aula — Fundamentos da Mudança de PDV",      tipo:"DOCX", cls:"b-docx", meta:"Word · 13/07/2026",
-    desc:"Material didático com os fundamentos do projeto, para alinhamento e capacitação das equipes."}
+  {sec:"aqu", code:"DOC10", id:"12581865515", titulo:"Histórico de Propostas – Fornecedor", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Compras",
+    desc:"Histórico de propostas comerciais recebidas. Documento de apoio à negociação."},
+  {sec:"aqu", code:"DOC13", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos · Diretoria",
+    desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
+  {sec:"aqu", code:"DOC15", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Financeiro · Comercial",
+    desc:"Cenários de custo com o valor total para o franqueado, apoio à decisão comercial e de contratação."},
+  {sec:"aqu", code:"DOC16", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
+    desc:"Ata do benchmarking com contato da Veja sobre experiência de PDV/sistema."},
+  {sec:"aqu", code:"DOC17", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Locctane", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
+    desc:"Ata do benchmarking com contato da Locctane sobre experiência de PDV/sistema."},
+
+  {sec:"exe", code:"DOC11", id:"12581866115", titulo:"Mapa de Integrações", tipo:"PPTX", cls:"b-pptx", st:"done", area:"TI · Projetos",
+    desc:"Fluxo de integrações entre o novo PDV e os sistemas da empresa. Shapes nativos editáveis."},
+  {sec:"exe", code:"DOC14", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
+    desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
+
+  {sec:"mon", code:"DOC12", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+    desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
 
-/* ---- Renderização ---- */
-let ready = 0;
 DOCS.forEach(d => {
-  const url = (LINKS[d.key] || "").trim();
-  const locked = url === "";
-  if(!locked) ready++;
-  const el = document.createElement(locked ? "div" : "a");
-  el.className = "card" + (locked ? " locked" : "");
-  if(!locked){ el.href = url; el.target = "_blank"; el.rel = "noopener"; }
-  el.innerHTML =
-    '<div class="top"><h3>'+d.titulo+'</h3><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
+  const a = document.createElement("a");
+  a.className = "card"; a.href = B + d.id; a.target = "_blank"; a.rel = "noopener";
+  const stTxt = d.st === "done" ? "Pronto" : "Em produção";
+  a.innerHTML =
+    '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="open">'+(locked?'🔒 Link a configurar':'↗ Abrir documento')+'</span><span>'+d.meta+'</span></div>';
-  document.getElementById(d.fase).appendChild(el);
+    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+stTxt+'</span><span>'+d.area+'</span><span>↗ Abrir no Monday</span></div>';
+  document.getElementById(d.sec).appendChild(a);
 });
 document.getElementById("count").textContent = DOCS.length;
-if(ready === DOCS.length){ document.getElementById("setupNotice").style.display = "none"; }
 </script>
 </body>
 </html>
