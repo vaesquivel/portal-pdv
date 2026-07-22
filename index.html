@@ -24,6 +24,7 @@
   .phase-head .num{background:var(--navy);color:#fff;min-width:26px;height:26px;padding:0 7px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
   .phase-head h2{font-size:16.5px;color:var(--navy);font-weight:700}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:15px}
+  .grid.stack{grid-template-columns:1fr}
   a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:10px;padding:15px 17px;transition:.15s}
   a.card:hover{box-shadow:0 6px 18px rgba(20,33,61,.12);transform:translateY(-2px);border-left-color:var(--navy)}
   .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -45,6 +46,10 @@
   .tbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
   .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
   .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .search-wrap{margin-bottom:24px}
+  .search{width:100%;max-width:540px;padding:11px 15px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+  .search:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
+  .noresult{color:var(--muted);font-size:13px;padding:6px 2px;display:none}
   footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px;border-top:1px solid var(--line)}
   @media(max-width:640px){header{padding:26px 22px}}
 </style>
@@ -56,22 +61,28 @@
   <p>Central de entregáveis do projeto, organizada por fase (PMBOK). Cada card abre o documento no Monday (requer login). Esta capa é pública e não contém dados confidenciais — apenas direciona para os itens protegidos.</p>
   <div class="meta-bar">
     <span>Entregáveis: <b id="count">—</b></span>
-    <span>Atualização: <b>20/07/2026</b></span>
+    <span>Atualização: <b>22/07/2026</b></span>
     <span>PMO: <b>Vanessa Costa</b></span>
   </div>
 </header>
 
 <main>
   <div class="toolbar">
-    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener">📅 Cronograma &amp; Progresso (Monday)</a>
-    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener">🗂️ Board completo do projeto</a>
+    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener">📁 Documentos do Projeto</a>
+    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener">📅 Cronograma do Projeto</a>
     <a class="tbtn" href="https://github.com/Varejonline/api/wiki" target="_blank" rel="noopener">🔌 VarejOnline — API (Integração)</a>
     <a class="tbtn" href="https://varejonline.movidesk.com/kb/pt-br" target="_blank" rel="noopener">💬 VarejOnline — Central de Ajuda</a>
+  </div>
+
+  <div class="search-wrap">
+    <input id="busca" class="search" type="search" placeholder="🔎 Buscar por documento, código, frente, área ou status…" autocomplete="off">
+    <div class="noresult" id="noresult">Nenhum documento encontrado.</div>
   </div>
 
   <section class="phase"><div class="phase-head"><span class="num">1</span><h2>Iniciação</h2></div><div class="grid" id="ini"></div></section>
   <section class="phase"><div class="phase-head"><span class="num">2</span><h2>Planejamento</h2></div><div class="grid" id="pla"></div></section>
   <section class="phase"><div class="phase-head"><span class="num">3</span><h2>Aquisições — Seleção de Fornecedores</h2></div><div class="grid" id="aqu"></div></section>
+  <section class="phase"><div class="phase-head"><span class="num">📄</span><h2>Propostas por Fornecedor</h2></div><div class="grid stack" id="prop"></div></section>
   <section class="phase"><div class="phase-head"><span class="num">4</span><h2>Execução — Integrações</h2></div><div class="grid" id="exe"></div></section>
   <section class="phase"><div class="phase-head"><span class="num">5</span><h2>Monitoramento &amp; Controle</h2></div><div class="grid" id="mon"></div></section>
 </main>
@@ -80,63 +91,101 @@
 
 <script>
 const B = "https://mr-cat-squadhub.monday.com/boards/18418008224/pulses/";
-/* Estado espelhado do Monday em 20/07/2026. st: done=Feito, prog=Em progresso, todo=Não iniciado */
+/* Estado espelhado do Monday em 22/07/2026.
+   file = link direto do anexo (abre o arquivo na hora). null = abre o item (sem anexo único: vários ou nenhum). */
 const DOCS = [
-  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
+  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
 
   {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122555497/[PLA01]%20Declaracao%20de%20Escopo%20-%20Mudanca%20de%20PDV.docx",
     desc:"Escopo formal: objetivos, entregas, exclusões, premissas e restrições do projeto."},
   {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122868135/[PLA02]%20EAP%20-%20Mudan%C3%A7a%20de%20PDV_V3.pptx",
     desc:"EAP em pacotes de trabalho, derivada do board de tarefas. Diagrama editável."},
-  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
+  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Responsabilidades por entrega: Responsável, Aprovador, Consultado, Informado."},
-  {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos",
+  {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos", file:null,
     desc:"Identificação, avaliação e planos de resposta aos riscos do projeto."},
   {sec:"pla", code:"DOC06", id:"12581994047", titulo:"Base de Lojas – Gerentes e Sistemas", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Cadastro · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122703983/LISTAGEM_SISTEMAS_FRANQUIAS_GERENTES.xlsx",
     desc:"Base de lojas (gerentes) e listagem de sistemas por loja — base para rollout, integração e migração."},
   {sec:"pla", code:"DOC18", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122708270/CUSTO_ALTERDATA_POR_LOJA_CRUZADO.xlsx",
     desc:"Base de lojas com o custo atual do Alterdata pago por cada loja — linha de base para comparação de custos."},
   {sec:"pla", code:"DOC19", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127354299/Melhoria_de_apresenta__o_de_usu_rios.pptx",
     desc:"Mapeamento dos participantes do projeto por frente, com Key Users, áreas e papéis."},
 
   {sec:"aqu", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127264218/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
     desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
   {sec:"aqu", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122554904/Consolidado_Avaliacao_Fornecedores_PDV_COMERCIAL.xlsx",
     desc:"Recorte da avaliação com foco nas categorias comerciais."},
-  {sec:"aqu", code:"DOC10", id:"12581865515", titulo:"Histórico de Propostas – Fornecedor", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
-    desc:"Propostas comerciais recebidas dos fornecedores. Documento de apoio à negociação."},
-  {sec:"aqu", code:"DOC13", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
+  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"Compras", file:null,
+    desc:"Proposta comercial do fornecedor TOTVS (produto VarejOnline)."},
+  {sec:"prop", code:"DOC21", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"prog", area:"Compras", file:null,
+    desc:"Proposta comercial do fornecedor DataSystem (produto Use)."},
+  {sec:"prop", code:"DOC22", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"prog", area:"Compras", file:null,
+    desc:"Proposta comercial do fornecedor Linx (produto Seta)."},
+  {sec:"aqu", code:"DOC13", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
     desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
   {sec:"aqu", code:"DOC15", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706189/Planilha_Custos_TOTVS_VarejOnline_MrCat_Cenarios.xlsx",
     desc:"Cenários de custo com o valor total para o franqueado, apoio à decisão comercial e de contratação."},
   {sec:"aqu", code:"DOC16", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706800/ATA%20-%20Varejonline%20-%20Experiencia%20-%20TI%20-%20VEJA%2003-07-2026.docx",
     desc:"Ata do benchmarking sobre experiência de PDV/sistema (Veja)."},
   {sec:"aqu", code:"DOC17", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122707101/ATA%20-%20Benchmarking%20-%20VarejOnline%20-%2016-07-2026.docx",
     desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
   {sec:"aqu", code:"DOC20", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
     desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
 
   {sec:"exe", code:"DOC11", id:"12581866115", titulo:"Mapa de Integrações", tipo:"PPTX", cls:"b-pptx", st:"done", area:"TI · Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122530995/Redesenho_de_integra__es_PDV.pptx",
     desc:"Fluxo de integrações entre o novo PDV e os sistemas da empresa. Shapes nativos editáveis."},
-  {sec:"exe", code:"DOC14", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"todo", area:"Projetos",
+  {sec:"pla", code:"DOC14", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"todo", area:"Projetos", file:null,
     desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
 
-  {sec:"mon", code:"DOC12", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos",
+  {sec:"mon", code:"DOC12", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
 
 const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
+const cards = [];
 DOCS.forEach(d => {
   const a = document.createElement("a");
-  a.className = "card"; a.href = B + d.id; a.target = "_blank"; a.rel = "noopener";
+  a.className = "card"; a.href = d.file ? d.file : (B + d.id); a.target = "_blank"; a.rel = "noopener";
+  const acao = d.file ? "↗ Abrir arquivo" : "↗ Abrir no Monday";
   a.innerHTML =
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>↗ Abrir no Monday</span></div>';
+    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
   document.getElementById(d.sec).appendChild(a);
+  cards.push({el:a, sec:d.sec, text:(d.code+' '+d.titulo+' '+d.area+' '+d.desc+' '+STLABEL[d.st]).toLowerCase()});
 });
 document.getElementById("count").textContent = DOCS.length;
+
+/* Busca em tempo real */
+const busca = document.getElementById("busca");
+busca.addEventListener("input", () => {
+  const q = busca.value.trim().toLowerCase();
+  let total = 0; const porSec = {};
+  cards.forEach(c => {
+    const m = !q || c.text.includes(q);
+    c.el.style.display = m ? "" : "none";
+    if(m){ total++; porSec[c.sec] = (porSec[c.sec]||0)+1; }
+  });
+  document.querySelectorAll(".phase").forEach(ph => {
+    const grid = ph.querySelector(".grid");
+    const cnt = porSec[grid.id] || 0;
+    ph.style.display = (q && cnt === 0) ? "none" : "";
+  });
+  document.getElementById("noresult").style.display = (q && total === 0) ? "block" : "none";
+});
 </script>
 </body>
 </html>
