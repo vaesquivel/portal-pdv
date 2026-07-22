@@ -12,22 +12,71 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-  header{background:linear-gradient(135deg,var(--navy),var(--navy-soft));color:#fff;padding:38px 48px 30px}
+  header{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f1b34,var(--navy) 55%,var(--navy-soft));color:#fff;padding:40px 0 32px}
+  header::before{content:"";position:absolute;top:-45%;right:-6%;width:560px;height:560px;background:radial-gradient(circle,rgba(169,119,47,.22),transparent 62%);pointer-events:none}
+  header::after{content:"";position:absolute;bottom:-65%;left:-6%;width:480px;height:480px;background:radial-gradient(circle,rgba(90,122,200,.18),transparent 60%);pointer-events:none}
+  .hwrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 24px}
   header .kicker{color:var(--bronze-soft);font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:600}
-  header h1{font-size:27px;font-weight:700;margin-top:6px}
-  header p{color:#c8cede;margin-top:8px;font-size:14px;max-width:780px}
-  .meta-bar{display:flex;gap:28px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:#aeb6cb}
-  .meta-bar b{color:#fff;font-weight:600}
+  header h1{font-size:28px;font-weight:800;margin-top:6px;letter-spacing:-.3px}
+  header p{color:#c8cede;margin-top:9px;font-size:14px;max-width:760px}
+  .hstats{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
+  .hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:13px 17px;min-width:108px}
+  .hstat b{display:block;font-size:23px;font-weight:800;color:#fff;line-height:1.05}
+  .hstat .hl{font-size:11px;color:#aeb8cf;letter-spacing:.3px}
+  .hstat.wide{flex:1;min-width:210px;display:flex;flex-direction:column;justify-content:center;gap:9px}
+  .hbar{height:9px;background:rgba(255,255,255,.16);border-radius:6px;overflow:hidden}
+  .hbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--bronze),#e6c78c);border-radius:6px;transition:width 1s cubic-bezier(.2,.7,.3,1)}
+  .hstat.wide .hpct{font-size:12.5px;color:#e7ecf6;font-weight:700}
+  .meta-mini{margin-top:16px;font-size:12px;color:#8ea0c2}
   main{max-width:1080px;margin:0 auto;padding:34px 24px 60px}
-  .phase{margin-bottom:32px}
-  .phase-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:18px}
-  .phase-head .num{background:var(--navy);color:#fff;min-width:26px;height:26px;padding:0 7px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
-  .phase-head h2{font-size:16.5px;color:var(--navy);font-weight:700}
-  .phase-head .cnt{font-size:12px;color:var(--muted);font-weight:600}
+  .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+  .tbtn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
+  .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
+  .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .tbtn svg{width:16px;height:16px;flex:none}
+  .search-wrap{position:relative;max-width:540px;margin-bottom:22px}
+  .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
+  .search{width:100%;padding:11px 15px 11px 40px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+  .search:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
+
+  .section-label{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:8px 0 18px}
+  .folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:22px 20px;margin-bottom:40px;perspective:1400px}
+  .folder{position:relative;text-align:left;cursor:pointer;font-family:inherit;
+    background:linear-gradient(180deg,#ffffff 0%,#f5f8fc 100%);
+    border:1px solid #e6eaf1;border-radius:16px;padding:22px 18px 18px;margin-top:15px;
+    box-shadow:0 1px 1px rgba(20,33,61,.05), 0 12px 22px -14px rgba(20,33,61,.30);
+    transform-style:preserve-3d;
+    transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s, border-color .22s}
+  .folder::before{content:"";position:absolute;top:-12px;left:22px;width:70px;height:16px;
+    background:linear-gradient(180deg,var(--bronze-soft),var(--bronze));
+    border-radius:9px 9px 0 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 -2px 4px rgba(20,33,61,.06)}
+  .folder::after{content:"";position:absolute;left:10px;right:10px;top:-6px;height:14px;
+    background:#e7ecf4;border:1px solid #e2e7f0;border-bottom:none;border-radius:12px 12px 0 0;z-index:-1}
+  .folder:hover{transform:translateY(-7px) rotateX(4deg);
+    box-shadow:0 2px 2px rgba(20,33,61,.06), 0 30px 42px -20px rgba(20,33,61,.48);border-color:#cfd7e4}
+  .folder.active{background:linear-gradient(158deg,#20386a 0%,var(--navy) 100%);border-color:var(--navy);
+    box-shadow:0 3px 3px rgba(20,33,61,.12), 0 30px 46px -18px rgba(20,33,61,.6)}
+  .folder.active::before{background:linear-gradient(180deg,#dcb373,var(--bronze))}
+  .folder.active::after{background:#26406e;border-color:#26406e}
+  .folder.active .f-name{color:#fff}
+  .folder.active .f-meta{color:#b9c6de}
+  .folder.active .f-icon{background:rgba(255,255,255,.15);color:#fff;box-shadow:none}
+  .f-icon{width:44px;height:44px;border-radius:12px;background:#eef2f8;color:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 1px 2px rgba(20,33,61,.06)}
+  .f-icon svg{width:22px;height:22px}
+  .f-name{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.3}
+  .f-meta{font-size:11.5px;color:var(--muted);margin-top:5px}
+  .progress{height:7px;background:#e7ebf2;border-radius:5px;margin-top:13px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(20,33,61,.09)}
+  .folder.active .progress{background:rgba(255,255,255,.18)}
+  .progress span{display:block;height:100%;background:linear-gradient(90deg,#2a9c62,var(--green));border-radius:5px}
+
+  .docs-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:18px}
+  .docs-head h2{font-size:17px;color:var(--navy);font-weight:700;display:inline-flex;align-items:center;gap:8px}
+  .docs-head h2 svg{width:20px;height:20px}
+  .docs-head .cnt{font-size:12px;color:var(--muted);font-weight:600}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:15px}
-  .empty{font-size:12.5px;color:var(--muted);font-style:italic;padding:2px}
-  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:10px;padding:15px 17px;transition:.15s}
-  a.card:hover{box-shadow:0 6px 18px rgba(20,33,61,.12);transform:translateY(-2px);border-left-color:var(--navy)}
+  .empty{font-size:13px;color:var(--muted);font-style:italic;padding:6px 2px}
+  a.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bronze);border-radius:12px;padding:16px 18px;box-shadow:0 1px 2px rgba(20,33,61,.05);transition:transform .15s, box-shadow .15s, border-color .15s}
+  a.card:hover{box-shadow:0 10px 24px -8px rgba(20,33,61,.22);transform:translateY(-3px);border-left-color:var(--navy)}
   .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
   .card .code{font-size:10.5px;font-weight:700;color:var(--bronze);letter-spacing:.5px}
   .card h3{font-size:14px;color:var(--navy);font-weight:700;line-height:1.35;margin-top:2px}
@@ -43,58 +92,79 @@
   .st.done{color:var(--green)} .st.prog{color:var(--amber)} .st.todo{color:var(--todo)}
   .st .dot{width:8px;height:8px;border-radius:50%}
   .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)} .st.todo .dot{background:var(--todo)}
-  .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px}
-  .tbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
-  .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
-  .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .search-wrap{margin-bottom:24px}
-  .search{width:100%;max-width:540px;padding:11px 15px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
-  .search:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
-  .noresult{color:var(--muted);font-size:13px;padding:6px 2px;display:none}
   footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px;border-top:1px solid var(--line)}
   @media(max-width:640px){header{padding:26px 22px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="kicker">Mr. Cat &middot; PMO — Gestão de Projetos</div>
-  <h1>Projeto Mudança de PDV — Portal do Projeto</h1>
-  <p>Central de entregáveis organizada pelo ciclo de vida do projeto (grupos de processos PMBOK). Cada card abre o documento (requer login). Esta capa é pública e não contém dados confidenciais — apenas direciona para os itens protegidos.</p>
-  <div class="meta-bar">
-    <span>Entregáveis: <b id="count">—</b></span>
-    <span>Atualização: <b>22/07/2026</b></span>
-    <span>PMO: <b>Vanessa Costa</b></span>
+  <div class="hwrap">
+    <div class="kicker">Mr. Cat &middot; PMO — Gestão de Projetos</div>
+    <h1>Projeto Mudança de PDV — Portal do Projeto</h1>
+    <p>Entregáveis organizados em pastas pelo ciclo de vida do projeto (PMBOK). Clique numa pasta para ver seus documentos. Cada card abre o arquivo (requer login no Monday).</p>
+    <div class="hstats">
+      <div class="hstat"><b id="s-total">—</b><span class="hl">Entregáveis</span></div>
+      <div class="hstat"><b id="s-done">—</b><span class="hl">Concluídos</span></div>
+      <div class="hstat"><b id="s-prog">—</b><span class="hl">Em progresso</span></div>
+      <div class="hstat"><b id="s-todo">—</b><span class="hl">Não iniciados</span></div>
+      <div class="hstat wide"><div class="hbar"><span id="s-bar"></span></div><span class="hpct" id="s-pct">—</span></div>
+    </div>
+    <div class="meta-mini">Atualização: 22/07/2026 &middot; PMO: Vanessa Costa</div>
   </div>
 </header>
 
 <main>
   <div class="toolbar">
-    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener">📁 Documentos do Projeto</a>
-    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener">📅 Cronograma do Projeto</a>
-    <a class="tbtn" href="https://github.com/Varejonline/api/wiki" target="_blank" rel="noopener">🔌 VarejOnline — API (Integração)</a>
-    <a class="tbtn" href="https://varejonline.movidesk.com/kb/pt-br" target="_blank" rel="noopener">💬 VarejOnline — Central de Ajuda</a>
+    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Documentos do Projeto</a>
+    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Cronograma do Projeto</a>
+    <a class="tbtn" href="https://github.com/Varejonline/api/wiki" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>VarejOnline — API (Integração)</a>
+    <a class="tbtn" href="https://varejonline.movidesk.com/kb/pt-br" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9.6 9a2.4 2.4 0 0 1 4.7.7c0 1.6-2.3 2-2.3 3.3M12 16h.01"/></svg>VarejOnline — Central de Ajuda</a>
   </div>
 
   <div class="search-wrap">
-    <input id="busca" class="search" type="search" placeholder="🔎 Buscar por documento, código, área ou status…" autocomplete="off">
-    <div class="noresult" id="noresult">Nenhum documento encontrado.</div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.2-4.2"/></svg>
+    <input id="busca" class="search" type="search" placeholder="Buscar documento em todas as pastas…" autocomplete="off">
   </div>
 
-  <section class="phase"><div class="phase-head"><span class="num">📄</span><h2>Propostas dos Fornecedores</h2><span class="cnt" data-cnt="prop"></span></div><div class="grid" id="prop"></div></section>
-  <section class="phase"><div class="phase-head"><span class="num">1</span><h2>Iniciação</h2><span class="cnt" data-cnt="ini"></span></div><div class="grid" id="ini"></div></section>
-  <section class="phase"><div class="phase-head"><span class="num">2</span><h2>Planejamento</h2><span class="cnt" data-cnt="pla"></span></div><div class="grid" id="pla"></div></section>
-  <section class="phase"><div class="phase-head"><span class="num">3</span><h2>Execução</h2><span class="cnt" data-cnt="exe"></span></div><div class="grid" id="exe"></div></section>
-  <section class="phase"><div class="phase-head"><span class="num">4</span><h2>Monitoramento &amp; Controle</h2><span class="cnt" data-cnt="mon"></span></div><div class="grid" id="mon"></div></section>
-  <section class="phase"><div class="phase-head"><span class="num">5</span><h2>Encerramento</h2><span class="cnt" data-cnt="enc"></span></div><div class="grid" id="enc"></div></section>
+  <div class="section-label">Pastas do projeto</div>
+  <div class="folders" id="folders"></div>
+
+  <div class="docs-head"><h2 id="docs-title">—</h2><span class="cnt" id="docs-cnt"></span></div>
+  <div class="grid" id="docs"></div>
 </main>
 
 <footer>Mr. Cat &middot; PMO — Vanessa Costa &middot; Portal do Projeto Mudança de PDV</footer>
 
 <script>
 const B = "https://mr-cat-squadhub.monday.com/boards/18418008224/pulses/";
-/* Espelho do board (22/07/2026), agrupado por ciclo de vida PMBOK.
-   sec: ini | pla | exe | mon | enc.  file: link direto do anexo (1 arquivo) ou null (vários/nenhum → abre item). */
+const SVG = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  prop: '<svg '+SVG+'><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>',
+  ini:  '<svg '+SVG+'><path d="M5 21V4"/><path d="M5 4h12l-2.5 3.5L17 11H5"/></svg>',
+  pla:  '<svg '+SVG+'><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M8 11h8M8 15h8M8 18h5"/></svg>',
+  exe:  '<svg '+SVG+'><path d="M10 6h10M10 12h10M10 18h10"/><path d="m3 6 1.3 1.3L7 5M3 12l1.3 1.3L7 11M3 18l1.3 1.3L7 17"/></svg>',
+  mon:  '<svg '+SVG+'><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/><path d="M18 7h2v2"/></svg>',
+  enc:  '<svg '+SVG+'><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>'
+};
+const FOLDERS = [
+  {key:"prop", nome:"Propostas dos Fornecedores"},
+  {key:"ini",  nome:"Iniciação"},
+  {key:"pla",  nome:"Planejamento"},
+  {key:"exe",  nome:"Execução"},
+  {key:"mon",  nome:"Monitoramento & Controle"},
+  {key:"enc",  nome:"Encerramento"}
+];
+/* Espelho do board (22/07/2026). file: link direto do anexo (1 arquivo) ou null (vários/nenhum → abre item). */
 const DOCS = [
+  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"Compras", file:null,
+    desc:"Proposta(s) comercial(is) do fornecedor TOTVS (produto VarejOnline)."},
+  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127674531/MR%20CAT%20&%20LINX%20-%20DECK%20COMERCIAL%20-%20V1%20-06.03.pdf",
+    desc:"Proposta comercial do fornecedor Linx (produto Seta)."},
+  {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127675066/Proposta%20Comercial_Mr.%20Cat_10.07.26.pdf",
+    desc:"Proposta comercial do fornecedor DataSystem (produto Use)."},
+
   {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
   {sec:"ini", code:"DOC21", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos",
@@ -132,15 +202,7 @@ const DOCS = [
   {sec:"exe", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122554904/Consolidado_Avaliacao_Fornecedores_PDV_COMERCIAL.xlsx",
     desc:"Recorte da avaliação com foco nas categorias comerciais."},
-  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"Compras", file:null,
-    desc:"Proposta(s) comercial(is) do fornecedor TOTVS (produto VarejOnline)."},
-  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127674531/MR%20CAT%20&%20LINX%20-%20DECK%20COMERCIAL%20-%20V1%20-06.03.pdf",
-    desc:"Proposta comercial do fornecedor Linx (produto Seta)."},
-  {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127675066/Proposta%20Comercial_Mr.%20Cat_10.07.26.pdf",
-    desc:"Proposta comercial do fornecedor DataSystem (produto Use)."},
-  {sec:"exe", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+  {sec:"exe", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
     desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
   {sec:"exe", code:"DOC18", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
@@ -151,14 +213,17 @@ const DOCS = [
     desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
   {sec:"exe", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
     desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
+  {sec:"exe", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3128205161/Planilha_Custos_TOTVS_x_DataSystem_MrCat.xlsx",
+    desc:"Comparativo consolidado de custos entre VarejOnline (TOTVS) e DataSystem, apoio à decisão."},
 
   {sec:"mon", code:"DOC14", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
 
 const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
-const cards = [];
-DOCS.forEach(d => {
+
+function makeCard(d){
   const a = document.createElement("a");
   a.className = "card"; a.href = d.file ? d.file : (B + d.id); a.target = "_blank"; a.rel = "noopener";
   const acao = d.file ? "↗ Abrir arquivo" : "↗ Abrir no Monday";
@@ -166,30 +231,75 @@ DOCS.forEach(d => {
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
     '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
-  document.getElementById(d.sec).appendChild(a);
-  cards.push({el:a, sec:d.sec, text:(d.code+' '+d.titulo+' '+d.area+' '+d.desc+' '+STLABEL[d.st]).toLowerCase()});
-});
-document.getElementById("count").textContent = DOCS.length;
+  return a;
+}
 
-/* contadores por fase + placeholder para fase vazia */
-["ini","pla","exe","prop","mon","enc"].forEach(s => {
-  const n = DOCS.filter(d => d.sec === s).length;
-  document.querySelector('[data-cnt="'+s+'"]').textContent = n + (n === 1 ? " documento" : " documentos");
-  if(n === 0){ const e=document.createElement("div"); e.className="empty"; e.textContent="Documentos serão adicionados nesta fase."; document.getElementById(s).appendChild(e); }
-});
+const foldersEl = document.getElementById("folders");
+const docsEl = document.getElementById("docs");
+const titleEl = document.getElementById("docs-title");
+const cntEl = document.getElementById("docs-cnt");
+let ativa = null;
 
-/* busca */
+function stats(key){
+  const arr = DOCS.filter(d => d.sec === key);
+  const done = arr.filter(d => d.st === "done").length;
+  const pct = arr.length ? Math.round(done/arr.length*100) : 0;
+  return {total:arr.length, done, pct, arr};
+}
+
+function abrir(key){
+  ativa = key;
+  document.querySelectorAll(".folder").forEach(f => f.classList.toggle("active", f.dataset.key === key));
+  const f = FOLDERS.find(x => x.key === key);
+  const s = stats(key);
+  titleEl.innerHTML = ICONS[key] + "<span>" + f.nome + "</span>";
+  cntEl.textContent = s.total ? (s.total + (s.total===1?" documento · ":" documentos · ") + s.pct + "% concluído") : "";
+  docsEl.innerHTML = "";
+  if(!s.total){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum documento nesta pasta ainda."; docsEl.appendChild(e); return; }
+  s.arr.forEach(d => docsEl.appendChild(makeCard(d)));
+}
+
+FOLDERS.forEach(f => {
+  const s = stats(f.key);
+  const b = document.createElement("button");
+  b.className = "folder"; b.dataset.key = f.key;
+  b.innerHTML =
+    '<div class="f-icon">'+ICONS[f.key]+'</div>'+
+    '<div class="f-name">'+f.nome+'</div>'+
+    '<div class="f-meta">'+ s.total + (s.total===1?" documento":" documentos") + '</div>'+
+    '<div class="progress"><span style="width:'+s.pct+'%"></span></div>'+
+    '<div class="f-meta" style="margin-top:6px">'+s.pct+'% concluído</div>';
+  b.addEventListener("click", () => { document.getElementById("busca").value=""; abrir(f.key); });
+  foldersEl.appendChild(b);
+});
+(function(){
+  const total=DOCS.length,
+        done=DOCS.filter(d=>d.st==="done").length,
+        prog=DOCS.filter(d=>d.st==="prog").length,
+        todo=DOCS.filter(d=>d.st==="todo").length,
+        pct=total?Math.round(done/total*100):0;
+  document.getElementById("s-total").textContent=total;
+  document.getElementById("s-done").textContent=done;
+  document.getElementById("s-prog").textContent=prog;
+  document.getElementById("s-todo").textContent=todo;
+  document.getElementById("s-pct").textContent=pct+"% concluído";
+  setTimeout(()=>{document.getElementById("s-bar").style.width=pct+"%";},150);
+})();
+
 const busca = document.getElementById("busca");
 busca.addEventListener("input", () => {
   const q = busca.value.trim().toLowerCase();
-  let total = 0; const porSec = {};
-  cards.forEach(c => { const m = !q || c.text.includes(q); c.el.style.display = m ? "" : "none"; if(m){ total++; porSec[c.sec]=(porSec[c.sec]||0)+1; } });
-  document.querySelectorAll(".phase").forEach(ph => {
-    const grid = ph.querySelector(".grid");
-    ph.style.display = (q && !(porSec[grid.id])) ? "none" : "";
-  });
-  document.getElementById("noresult").style.display = (q && total === 0) ? "block" : "none";
+  if(!q){ abrir(ativa || "prop"); return; }
+  document.querySelectorAll(".folder").forEach(f => f.classList.remove("active"));
+  const res = DOCS.filter(d => (d.code+' '+d.titulo+' '+d.area+' '+d.desc+' '+STLABEL[d.st]).toLowerCase().includes(q));
+  titleEl.innerHTML = "<span>Resultados da busca</span>";
+  cntEl.textContent = res.length + (res.length===1?" documento":" documentos");
+  docsEl.innerHTML = "";
+  if(!res.length){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum documento encontrado."; docsEl.appendChild(e); return; }
+  res.forEach(d => docsEl.appendChild(makeCard(d)));
 });
+
+abrir("prop");
 </script>
 </body>
 </html>
