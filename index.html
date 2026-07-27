@@ -34,7 +34,7 @@
   .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
   .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
   .tbtn svg{width:16px;height:16px;flex:none}
-  .search-wrap{position:relative;max-width:540px;margin-bottom:22px}
+  .search-wrap{position:relative;width:100%;margin-bottom:22px}
   .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
   .search{width:100%;padding:11px 15px 11px 40px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
   .search:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
@@ -109,12 +109,10 @@
     <p>Entregáveis organizados em pastas pelo ciclo de vida do projeto (PMBOK). Clique numa pasta para ver seus documentos. Cada card abre o arquivo (requer login no Monday).</p>
     <div class="hstats">
       <div class="hstat"><b id="s-total">—</b><span class="hl">Entregáveis</span></div>
-      <div class="hstat"><b id="s-done">—</b><span class="hl">Concluídos</span></div>
-      <div class="hstat"><b id="s-prog">—</b><span class="hl">Em progresso</span></div>
-      <div class="hstat"><b id="s-todo">—</b><span class="hl">Não iniciados</span></div>
-      <div class="hstat wide"><div class="hbar"><span id="s-bar"></span></div><span class="hpct" id="s-pct">—</span></div>
+      <div class="hstat"><b id="s-anex">—</b><span class="hl">Anexados</span></div>
+      <div class="hstat"><b id="s-sem">—</b><span class="hl">Sem arquivo</span></div>
     </div>
-    <div class="meta-mini">Atualização: 22/07/2026 &middot; PMO: Vanessa Costa</div>
+    <div class="meta-mini">Atualização: 27/07/2026 · 16h19 &middot; PMO: Vanessa Costa</div>
   </div>
 </header>
 
@@ -130,7 +128,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.2-4.2"/></svg>
     <input id="busca" class="search" type="search" placeholder="Buscar documento em todas as pastas…" autocomplete="off">
   </div>
-  <div class="net-note">Pasta do projeto na rede: <code>M:\PROJETOS\2026\01 - Projetos\10 - PDV</code> &middot; use o botão "Copiar caminho" nos cards para abrir pela rede.</div>
+  <div class="net-note">Pasta do projeto na rede: <code>M:\PROJETOS\2026\01 - Projetos\10 - PDV</code></div>
 
   <div class="section-label">Pastas do projeto</div>
   <div class="folders" id="folders"></div>
@@ -230,7 +228,6 @@ const DOCS = [
 
 const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
 
-const NET_PATH = "M:\\PROJETOS\\2026\\01 - Projetos\\10 - PDV";
 function makeCard(d){
   const a = document.createElement("a");
   a.className = "card"; a.href = d.file ? d.file : (B + d.id); a.target = "_blank"; a.rel = "noopener";
@@ -238,15 +235,7 @@ function makeCard(d){
   a.innerHTML =
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span><button type="button" class="copybtn" title="Copiar caminho da pasta na rede">Copiar caminho</button></div>';
-  const btn = a.querySelector(".copybtn");
-  btn.addEventListener("click", e => {
-    e.preventDefault(); e.stopPropagation();
-    const done = () => { const old = "Copiar caminho"; btn.textContent = "✓ Copiado"; btn.classList.add("ok"); setTimeout(() => { btn.textContent = old; btn.classList.remove("ok"); }, 1600); };
-    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(NET_PATH).then(done).catch(()=>fallback()); }
-    else fallback();
-    function fallback(){ const ta=document.createElement("textarea"); ta.value=NET_PATH; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(_){} document.body.removeChild(ta); done(); }
-  });
+    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
   return a;
 }
 
@@ -269,7 +258,7 @@ function abrir(key){
   const f = FOLDERS.find(x => x.key === key);
   const s = stats(key);
   titleEl.innerHTML = ICONS[key] + "<span>" + f.nome + "</span>";
-  cntEl.textContent = s.total ? (s.total + (s.total===1?" documento · ":" documentos · ") + s.pct + "% concluído") : "";
+  cntEl.textContent = s.total ? (s.total + (s.total===1?" documento":" documentos")) : "";
   docsEl.innerHTML = "";
   if(!s.total){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum documento nesta pasta ainda."; docsEl.appendChild(e); return; }
   s.arr.forEach(d => docsEl.appendChild(makeCard(d)));
@@ -282,24 +271,17 @@ FOLDERS.forEach(f => {
   b.innerHTML =
     '<div class="f-icon">'+ICONS[f.key]+'</div>'+
     '<div class="f-name">'+f.nome+'</div>'+
-    '<div class="f-meta">'+ s.total + (s.total===1?" documento":" documentos") + '</div>'+
-    '<div class="progress"><span style="width:'+s.pct+'%"></span></div>'+
-    '<div class="f-meta" style="margin-top:6px">'+s.pct+'% concluído</div>';
+    '<div class="f-meta">'+ s.total + (s.total===1?" documento":" documentos") + '</div>';
   b.addEventListener("click", () => { document.getElementById("busca").value=""; abrir(f.key); });
   foldersEl.appendChild(b);
 });
 (function(){
   const total=DOCS.length,
-        done=DOCS.filter(d=>d.st==="done").length,
-        prog=DOCS.filter(d=>d.st==="prog").length,
-        todo=DOCS.filter(d=>d.st==="todo").length,
-        pct=total?Math.round(done/total*100):0;
+        anex=DOCS.filter(d=>d.file).length,
+        sem=total-anex;
   document.getElementById("s-total").textContent=total;
-  document.getElementById("s-done").textContent=done;
-  document.getElementById("s-prog").textContent=prog;
-  document.getElementById("s-todo").textContent=todo;
-  document.getElementById("s-pct").textContent=pct+"% concluído";
-  setTimeout(()=>{document.getElementById("s-bar").style.width=pct+"%";},150);
+  document.getElementById("s-anex").textContent=anex;
+  document.getElementById("s-sem").textContent=sem;
 })();
 
 const busca = document.getElementById("busca");
