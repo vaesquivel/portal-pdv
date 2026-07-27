@@ -87,7 +87,12 @@
   .b-pdf{background:#fbe9e7;color:#b3261e}
   .b-doc{background:#eef0f4;color:#5b6474}
   .card p{font-size:12.3px;color:var(--muted);margin-top:8px}
-  .card .foot{margin-top:11px;font-size:11px;color:#98a0b0;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .card .foot{margin-top:11px;font-size:11px;color:#98a0b0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .copybtn{font-family:inherit;font-size:10.5px;font-weight:700;color:var(--navy);background:#eef2f8;border:1px solid #dde3ec;border-radius:20px;padding:3px 10px;cursor:pointer;transition:.15s}
+  .copybtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .copybtn.ok{background:var(--green);color:#fff;border-color:var(--green)}
+  .net-note{font-size:12px;color:var(--muted);margin:-8px 0 22px}
+  .net-note code{background:#eef1f6;border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--navy);font-size:11.5px}
   .st{font-weight:700;display:inline-flex;align-items:center;gap:5px}
   .st.done{color:var(--green)} .st.prog{color:var(--amber)} .st.todo{color:var(--todo)}
   .st .dot{width:8px;height:8px;border-radius:50%}
@@ -125,6 +130,7 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.2-4.2"/></svg>
     <input id="busca" class="search" type="search" placeholder="Buscar documento em todas as pastas…" autocomplete="off">
   </div>
+  <div class="net-note">Pasta do projeto na rede: <code>M:\PROJETOS\2026\01 - Projetos\10 - PDV</code> &middot; use o botão "Copiar caminho" nos cards para abrir pela rede.</div>
 
   <div class="section-label">Pastas do projeto</div>
   <div class="folders" id="folders"></div>
@@ -156,9 +162,10 @@ const FOLDERS = [
 ];
 /* Espelho do board (22/07/2026). file: link direto do anexo (1 arquivo) ou null (vários/nenhum → abre item). */
 const DOCS = [
-  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"Compras", file:null,
-    desc:"Proposta(s) comercial(is) do fornecedor TOTVS (produto VarejOnline)."},
-  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136939843/Apresenta%C3%A7%C3%A3o%20Comercial%20TOTVS%20VarejOnline%20-%20Mr%20Cat%20-%202707.pdf",
+    desc:"Proposta comercial do fornecedor TOTVS (produto VarejOnline)."},
+  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"TI",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127674531/MR%20CAT%20&%20LINX%20-%20DECK%20COMERCIAL%20-%20V1%20-06.03.pdf",
     desc:"Proposta comercial do fornecedor Linx (produto Seta)."},
   {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
@@ -197,11 +204,8 @@ const DOCS = [
     desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
 
   {sec:"exe", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127264218/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136941139/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
     desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
-  {sec:"exe", code:"DOC09", id:"12581855491", titulo:"Avaliação de Fornecedores – Recorte Comercial", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122554904/Consolidado_Avaliacao_Fornecedores_PDV_COMERCIAL.xlsx",
-    desc:"Recorte da avaliação com foco nas categorias comerciais."},
   {sec:"exe", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
     desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
@@ -214,8 +218,11 @@ const DOCS = [
   {sec:"exe", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
     desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
   {sec:"exe", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3128205161/Planilha_Custos_TOTVS_x_DataSystem_MrCat.xlsx",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136983895/Planilha_Custos_TOTVS_x_DataSystem_MrCatV2.xlsx",
     desc:"Comparativo consolidado de custos entre VarejOnline (TOTVS) e DataSystem, apoio à decisão."},
+  {sec:"exe", code:"DOC24", id:"12640432004", titulo:"Ata de Reunião – Benchmarking Franqueado (Carlinhos)", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136936418/ATA%20-%20Varejo%20Online%20-%20Franqueado%20Carlos%20-%2022-07-2026.docx",
+    desc:"Ata do benchmarking com franqueado (Carlinhos) sobre experiência de PDV/sistema."},
 
   {sec:"mon", code:"DOC14", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Avaliação da equipe do projeto ao longo das fases."}
@@ -223,6 +230,7 @@ const DOCS = [
 
 const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
 
+const NET_PATH = "M:\\PROJETOS\\2026\\01 - Projetos\\10 - PDV";
 function makeCard(d){
   const a = document.createElement("a");
   a.className = "card"; a.href = d.file ? d.file : (B + d.id); a.target = "_blank"; a.rel = "noopener";
@@ -230,7 +238,15 @@ function makeCard(d){
   a.innerHTML =
     '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
     '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
+    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span><button type="button" class="copybtn" title="Copiar caminho da pasta na rede">Copiar caminho</button></div>';
+  const btn = a.querySelector(".copybtn");
+  btn.addEventListener("click", e => {
+    e.preventDefault(); e.stopPropagation();
+    const done = () => { const old = "Copiar caminho"; btn.textContent = "✓ Copiado"; btn.classList.add("ok"); setTimeout(() => { btn.textContent = old; btn.classList.remove("ok"); }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(NET_PATH).then(done).catch(()=>fallback()); }
+    else fallback();
+    function fallback(){ const ta=document.createElement("textarea"); ta.value=NET_PATH; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy");}catch(_){} document.body.removeChild(ta); done(); }
+  });
   return a;
 }
 
