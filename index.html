@@ -20,24 +20,17 @@
   header h1{font-size:28px;font-weight:800;margin-top:6px;letter-spacing:-.3px}
   header p{color:#c8cede;margin-top:9px;font-size:14px;max-width:760px}
   .hstats{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px}
-  .hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:13px 17px;min-width:108px}
+  .hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:13px 17px;min-width:118px}
   .hstat b{display:block;font-size:23px;font-weight:800;color:#fff;line-height:1.05}
   .hstat .hl{font-size:11px;color:#aeb8cf;letter-spacing:.3px}
-  .hstat.wide{flex:1;min-width:210px;display:flex;flex-direction:column;justify-content:center;gap:9px}
-  .hbar{height:9px;background:rgba(255,255,255,.16);border-radius:6px;overflow:hidden}
-  .hbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--bronze),#e6c78c);border-radius:6px;transition:width 1s cubic-bezier(.2,.7,.3,1)}
-  .hstat.wide .hpct{font-size:12.5px;color:#e7ecf6;font-weight:700}
   .meta-mini{margin-top:16px;font-size:12px;color:#8ea0c2}
   main{max-width:1080px;margin:0 auto;padding:34px 24px 60px}
-  .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
-  .tbtn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;font-weight:600;padding:10px 16px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--navy);transition:.15s}
-  .tbtn:hover{box-shadow:0 4px 14px rgba(20,33,61,.12);transform:translateY(-1px);border-color:var(--navy)}
-  .tbtn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .tbtn svg{width:16px;height:16px;flex:none}
-  .search-wrap{position:relative;width:100%;margin-bottom:22px}
+  .search-wrap{position:relative;width:100%;margin-bottom:12px}
   .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:17px;height:17px;color:var(--muted)}
-  .search{width:100%;padding:11px 15px 11px 40px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+  .search{width:100%;padding:12px 15px 12px 40px;border:1px solid var(--line);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
   .search:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(20,33,61,.08)}
+  .net-note{font-size:12px;color:var(--muted);margin:0 0 24px}
+  .net-note code{background:#eef1f6;border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--navy);font-size:11.5px}
 
   .section-label{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:8px 0 18px}
   .folders{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:22px 20px;margin-bottom:40px;perspective:1400px}
@@ -65,9 +58,6 @@
   .f-icon svg{width:22px;height:22px}
   .f-name{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.3}
   .f-meta{font-size:11.5px;color:var(--muted);margin-top:5px}
-  .progress{height:7px;background:#e7ebf2;border-radius:5px;margin-top:13px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(20,33,61,.09)}
-  .folder.active .progress{background:rgba(255,255,255,.18)}
-  .progress span{display:block;height:100%;background:linear-gradient(90deg,#2a9c62,var(--green));border-radius:5px}
 
   .docs-head{display:flex;align-items:center;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:18px}
   .docs-head h2{font-size:17px;color:var(--navy);font-weight:700;display:inline-flex;align-items:center;gap:8px}
@@ -86,19 +76,16 @@
   .b-pptx{background:#fbeee2;color:#b3641b}
   .b-pdf{background:#fbe9e7;color:#b3261e}
   .b-doc{background:#eef0f4;color:#5b6474}
+  .b-link{background:#eaf1fb;color:#1d4ea8}
+  .b-mon{background:#efe9fb;color:#6b3fd4}
   .card p{font-size:12.3px;color:var(--muted);margin-top:8px}
   .card .foot{margin-top:11px;font-size:11px;color:#98a0b0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .copybtn{font-family:inherit;font-size:10.5px;font-weight:700;color:var(--navy);background:#eef2f8;border:1px solid #dde3ec;border-radius:20px;padding:3px 10px;cursor:pointer;transition:.15s}
-  .copybtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-  .copybtn.ok{background:var(--green);color:#fff;border-color:var(--green)}
-  .net-note{font-size:12px;color:var(--muted);margin:-8px 0 22px}
-  .net-note code{background:#eef1f6;border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--navy);font-size:11.5px}
   .st{font-weight:700;display:inline-flex;align-items:center;gap:5px}
   .st.done{color:var(--green)} .st.prog{color:var(--amber)} .st.todo{color:var(--todo)}
   .st .dot{width:8px;height:8px;border-radius:50%}
   .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)} .st.todo .dot{background:var(--todo)}
   footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px;border-top:1px solid var(--line)}
-  @media(max-width:640px){header{padding:26px 22px}}
+  @media(max-width:640px){header{padding:26px 22px}.hwrap{padding:0 22px}}
 </style>
 </head>
 <body>
@@ -112,18 +99,11 @@
       <div class="hstat"><b id="s-anex">—</b><span class="hl">Anexados</span></div>
       <div class="hstat"><b id="s-sem">—</b><span class="hl">Sem arquivo</span></div>
     </div>
-    <div class="meta-mini">Atualização: 27/07/2026 · 16h19 &middot; PMO: Vanessa Costa</div>
+    <div class="meta-mini">Atualização: 04/08/2026 · 15h03 &middot; PMO: Vanessa Costa</div>
   </div>
 </header>
 
 <main>
-  <div class="toolbar">
-    <a class="tbtn primary" href="https://mr-cat-squadhub.monday.com/boards/18418008224" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Documentos do Projeto</a>
-    <a class="tbtn" href="https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Cronograma do Projeto</a>
-    <a class="tbtn" href="https://github.com/Varejonline/api/wiki" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/></svg>VarejOnline — API (Integração)</a>
-    <a class="tbtn" href="https://varejonline.movidesk.com/kb/pt-br" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9.6 9a2.4 2.4 0 0 1 4.7.7c0 1.6-2.3 2-2.3 3.3M12 16h.01"/></svg>VarejOnline — Central de Ajuda</a>
-  </div>
-
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.2-4.2"/></svg>
     <input id="busca" class="search" type="search" placeholder="Buscar documento em todas as pastas…" autocomplete="off">
@@ -143,23 +123,26 @@
 const B = "https://mr-cat-squadhub.monday.com/boards/18418008224/pulses/";
 const SVG = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
 const ICONS = {
-  prop: '<svg '+SVG+'><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>',
+  prop: '<svg '+SVG+'><path d="M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z"/><path d="m9 11 2 2 4-4"/></svg>',
   ini:  '<svg '+SVG+'><path d="M5 21V4"/><path d="M5 4h12l-2.5 3.5L17 11H5"/></svg>',
   pla:  '<svg '+SVG+'><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M8 11h8M8 15h8M8 18h5"/></svg>',
   exe:  '<svg '+SVG+'><path d="M10 6h10M10 12h10M10 18h10"/><path d="m3 6 1.3 1.3L7 5M3 12l1.3 1.3L7 11M3 18l1.3 1.3L7 17"/></svg>',
   mon:  '<svg '+SVG+'><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 5-6"/><path d="M18 7h2v2"/></svg>',
-  enc:  '<svg '+SVG+'><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>'
+  enc:  '<svg '+SVG+'><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>',
+  cfg:  '<svg '+SVG+'><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg>'
 };
 const FOLDERS = [
-  {key:"prop", nome:"Propostas dos Fornecedores"},
+  {key:"prop", nome:"Seleção de Fornecedores"},
   {key:"ini",  nome:"Iniciação"},
   {key:"pla",  nome:"Planejamento"},
   {key:"exe",  nome:"Execução"},
   {key:"mon",  nome:"Monitoramento & Controle"},
-  {key:"enc",  nome:"Encerramento"}
+  {key:"enc",  nome:"Encerramento"},
+  {key:"cfg",  nome:"Documentos e Configurações"}
 ];
-/* Espelho do board (22/07/2026). file: link direto do anexo (1 arquivo) ou null (vários/nenhum → abre item). */
+/* Deliverables (espelho do board 04/08/2026). file: link direto (1 anexo) ou null (vários/nenhum → abre item). */
 const DOCS = [
+  /* Seleção de Fornecedores */
   {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"TI",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136939843/Apresenta%C3%A7%C3%A3o%20Comercial%20TOTVS%20VarejOnline%20-%20Mr%20Cat%20-%202707.pdf",
     desc:"Proposta comercial do fornecedor TOTVS (produto VarejOnline)."},
@@ -169,13 +152,35 @@ const DOCS = [
   {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127675066/Proposta%20Comercial_Mr.%20Cat_10.07.26.pdf",
     desc:"Proposta comercial do fornecedor DataSystem (produto Use)."},
+  {sec:"prop", code:"DOC18", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706800/ATA%20-%20Varejonline%20-%20Experiencia%20-%20TI%20-%20VEJA%2003-07-2026.docx",
+    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Veja)."},
+  {sec:"prop", code:"DOC19", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122707101/ATA%20-%20Benchmarking%20-%20VarejOnline%20-%2016-07-2026.docx",
+    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
+  {sec:"prop", code:"DOC24", id:"12640432004", titulo:"Ata de Reunião – Benchmarking Franqueado (Carlinhos)", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136936418/ATA%20-%20Varejo%20Online%20-%20Franqueado%20Carlos%20-%2022-07-2026.docx",
+    desc:"Ata do benchmarking com franqueado (Carlinhos) sobre experiência de PDV/sistema."},
 
+  /* Iniciação */
   {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
   {sec:"ini", code:"DOC21", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127354299/Melhoria_de_apresenta__o_de_usu_rios.pptx",
     desc:"Mapeamento dos participantes por frente, com Key Users, áreas e papéis (partes interessadas)."},
+  {sec:"ini", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136941139/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
+    desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
+  {sec:"ini", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136983895/Planilha_Custos_TOTVS_x_DataSystem_MrCatV2.xlsx",
+    desc:"Comparativo consolidado de custos entre VarejOnline (TOTVS) e DataSystem, apoio à decisão."},
+  {sec:"ini", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
+    desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
+  {sec:"ini", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
+    desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
 
+  /* Planejamento */
   {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122555497/[PLA01]%20Declaracao%20de%20Escopo%20-%20Mudanca%20de%20PDV.docx",
     desc:"Escopo formal: objetivos, entregas, exclusões, premissas e restrições do projeto."},
@@ -201,41 +206,47 @@ const DOCS = [
   {sec:"pla", code:"DOC16", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"todo", area:"Projetos", file:null,
     desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
 
-  {sec:"exe", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136941139/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
-    desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
-  {sec:"exe", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
-    desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
-  {sec:"exe", code:"DOC18", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706800/ATA%20-%20Varejonline%20-%20Experiencia%20-%20TI%20-%20VEJA%2003-07-2026.docx",
-    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Veja)."},
-  {sec:"exe", code:"DOC19", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122707101/ATA%20-%20Benchmarking%20-%20VarejOnline%20-%2016-07-2026.docx",
-    desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
-  {sec:"exe", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
-    desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
-  {sec:"exe", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136983895/Planilha_Custos_TOTVS_x_DataSystem_MrCatV2.xlsx",
-    desc:"Comparativo consolidado de custos entre VarejOnline (TOTVS) e DataSystem, apoio à decisão."},
-  {sec:"exe", code:"DOC24", id:"12640432004", titulo:"Ata de Reunião – Benchmarking Franqueado (Carlinhos)", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136936418/ATA%20-%20Varejo%20Online%20-%20Franqueado%20Carlos%20-%2022-07-2026.docx",
-    desc:"Ata do benchmarking com franqueado (Carlinhos) sobre experiência de PDV/sistema."},
+  /* Execução */
+  {sec:"exe", code:"DOC25", id:"12716738763", titulo:"Cenário de Teste (Modelo)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Projetos · TI", file:null,
+    desc:"Modelo/template para cadastro e acompanhamento dos cenários de teste da homologação do PDV."},
 
+  /* Monitoramento & Controle */
   {sec:"mon", code:"DOC14", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
     desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
+/* Links (não contam como entregáveis) */
+const LINKS = [
+  {sec:"pla", titulo:"Cronograma do Projeto (Monday)", tipo:"MONDAY", cls:"b-mon", link:true,
+    url:"https://mr-cat-squadhub.monday.com/boards/18418008224/views/264303465",
+    desc:"Cronograma e progresso do projeto no board do Monday."},
+  {sec:"cfg", titulo:"VarejOnline — API (Integração)", tipo:"LINK", cls:"b-link", link:true,
+    url:"https://github.com/Varejonline/api/wiki",
+    desc:"Documentação de integração (wiki da API) do fornecedor TOTVS Moda / VarejOnline."},
+  {sec:"cfg", titulo:"VarejOnline — Central de Ajuda", tipo:"LINK", cls:"b-link", link:true,
+    url:"https://varejonline.movidesk.com/kb/pt-br",
+    desc:"Base de conhecimento e suporte do VarejOnline."},
+  {sec:"cfg", titulo:"Board completo do Projeto (Monday)", tipo:"MONDAY", cls:"b-mon", link:true,
+    url:"https://mr-cat-squadhub.monday.com/boards/18418008224",
+    desc:"Quadro completo do projeto no Monday, com todas as fases e tarefas."}
+];
+const ITEMS = DOCS.concat(LINKS);
 
 const STLABEL = {done:"Feito", prog:"Em progresso", todo:"Não iniciado"};
 
 function makeCard(d){
   const a = document.createElement("a");
-  a.className = "card"; a.href = d.file ? d.file : (B + d.id); a.target = "_blank"; a.rel = "noopener";
-  const acao = d.file ? "↗ Abrir arquivo" : "↗ Abrir no Monday";
+  a.className = "card"; a.href = d.link ? d.url : (d.file ? d.file : (B + d.id)); a.target = "_blank"; a.rel = "noopener";
+  const codeHtml = d.code ? '<span class="code">'+d.code+'</span>' : '';
+  let foot;
+  if(d.link){
+    foot = '<div class="foot"><span>'+(d.tipo==="MONDAY"?"Monday":"Link externo")+'</span><span>↗ Abrir</span></div>';
+  } else {
+    const acao = d.file ? "↗ Abrir arquivo" : "↗ Abrir no Monday";
+    foot = '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
+  }
   a.innerHTML =
-    '<div class="top"><div><span class="code">'+d.code+'</span><h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
-    '<p>'+d.desc+'</p>'+
-    '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
+    '<div class="top"><div>'+codeHtml+'<h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
+    '<p>'+d.desc+'</p>'+ foot;
   return a;
 }
 
@@ -245,55 +256,49 @@ const titleEl = document.getElementById("docs-title");
 const cntEl = document.getElementById("docs-cnt");
 let ativa = null;
 
-function stats(key){
-  const arr = DOCS.filter(d => d.sec === key);
-  const done = arr.filter(d => d.st === "done").length;
-  const pct = arr.length ? Math.round(done/arr.length*100) : 0;
-  return {total:arr.length, done, pct, arr};
-}
-
 function abrir(key){
   ativa = key;
   document.querySelectorAll(".folder").forEach(f => f.classList.toggle("active", f.dataset.key === key));
   const f = FOLDERS.find(x => x.key === key);
-  const s = stats(key);
+  const arr = ITEMS.filter(d => d.sec === key);
   titleEl.innerHTML = ICONS[key] + "<span>" + f.nome + "</span>";
-  cntEl.textContent = s.total ? (s.total + (s.total===1?" documento":" documentos")) : "";
+  cntEl.textContent = arr.length ? (arr.length + (arr.length===1?" item":" itens")) : "";
   docsEl.innerHTML = "";
-  if(!s.total){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum documento nesta pasta ainda."; docsEl.appendChild(e); return; }
-  s.arr.forEach(d => docsEl.appendChild(makeCard(d)));
+  if(!arr.length){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum item nesta pasta ainda."; docsEl.appendChild(e); return; }
+  arr.forEach(d => docsEl.appendChild(makeCard(d)));
 }
 
 FOLDERS.forEach(f => {
-  const s = stats(f.key);
+  const n = ITEMS.filter(d => d.sec === f.key).length;
   const b = document.createElement("button");
   b.className = "folder"; b.dataset.key = f.key;
   b.innerHTML =
     '<div class="f-icon">'+ICONS[f.key]+'</div>'+
     '<div class="f-name">'+f.nome+'</div>'+
-    '<div class="f-meta">'+ s.total + (s.total===1?" documento":" documentos") + '</div>';
+    '<div class="f-meta">'+ n + (n===1?" item":" itens") + '</div>';
   b.addEventListener("click", () => { document.getElementById("busca").value=""; abrir(f.key); });
   foldersEl.appendChild(b);
 });
+
+/* Painel do topo — conta só entregáveis (DOCS) */
 (function(){
-  const total=DOCS.length,
-        anex=DOCS.filter(d=>d.file).length,
-        sem=total-anex;
+  const total=DOCS.length, anex=DOCS.filter(d=>d.file).length, sem=total-anex;
   document.getElementById("s-total").textContent=total;
   document.getElementById("s-anex").textContent=anex;
   document.getElementById("s-sem").textContent=sem;
 })();
 
+/* Busca global */
 const busca = document.getElementById("busca");
 busca.addEventListener("input", () => {
   const q = busca.value.trim().toLowerCase();
   if(!q){ abrir(ativa || "prop"); return; }
   document.querySelectorAll(".folder").forEach(f => f.classList.remove("active"));
-  const res = DOCS.filter(d => (d.code+' '+d.titulo+' '+d.area+' '+d.desc+' '+STLABEL[d.st]).toLowerCase().includes(q));
+  const res = ITEMS.filter(d => ((d.code||"")+' '+d.titulo+' '+(d.area||"")+' '+d.desc).toLowerCase().includes(q));
   titleEl.innerHTML = "<span>Resultados da busca</span>";
-  cntEl.textContent = res.length + (res.length===1?" documento":" documentos");
+  cntEl.textContent = res.length + (res.length===1?" item":" itens");
   docsEl.innerHTML = "";
-  if(!res.length){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum documento encontrado."; docsEl.appendChild(e); return; }
+  if(!res.length){ const e=document.createElement("div"); e.className="empty"; e.textContent="Nenhum item encontrado."; docsEl.appendChild(e); return; }
   res.forEach(d => docsEl.appendChild(makeCard(d)));
 });
 
