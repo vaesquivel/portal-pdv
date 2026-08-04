@@ -84,6 +84,7 @@
   .st.done{color:var(--green)} .st.prog{color:var(--amber)} .st.todo{color:var(--todo)}
   .st .dot{width:8px;height:8px;border-radius:50%}
   .st.done .dot{background:var(--green)} .st.prog .dot{background:var(--amber)} .st.todo .dot{background:var(--todo)}
+  .cdate{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);font-size:10.5px;color:#9aa3b2}
   footer{text-align:center;font-size:11.5px;color:var(--muted);padding:20px;border-top:1px solid var(--line)}
   @media(max-width:640px){header{padding:26px 22px}.hwrap{padding:0 22px}}
 </style>
@@ -99,7 +100,7 @@
       <div class="hstat"><b id="s-anex">—</b><span class="hl">Anexados</span></div>
       <div class="hstat"><b id="s-sem">—</b><span class="hl">Sem arquivo</span></div>
     </div>
-    <div class="meta-mini">Atualização: 04/08/2026 · 15h03 &middot; PMO: Vanessa Costa</div>
+    <div class="meta-mini">Atualização: 04/08/2026 · 15h30 &middot; PMO: Vanessa Costa</div>
   </div>
 </header>
 
@@ -140,78 +141,82 @@ const FOLDERS = [
   {key:"enc",  nome:"Encerramento"},
   {key:"cfg",  nome:"Documentos e Configurações"}
 ];
-/* Deliverables (espelho do board 04/08/2026). file: link direto (1 anexo) ou null (vários/nenhum → abre item). */
+/* Espelho do board 04/08/2026. file=link direto (1 anexo)|null. nofile=true quando não há anexo. data=última inclusão/atualização no Monday. */
 const DOCS = [
   /* Seleção de Fornecedores */
-  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"TI",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136939843/Apresenta%C3%A7%C3%A3o%20Comercial%20TOTVS%20VarejOnline%20-%20Mr%20Cat%20-%202707.pdf",
+  {sec:"prop", code:"DOC10", id:"12581865515", titulo:"Proposta – TOTVS (VarejOnline)", tipo:"PDF", cls:"b-pdf", st:"done", area:"TI", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157177208/Apresenta%C3%A7%C3%A3o%20Comercial%20TOTVS%20VarejOnline%20-%20Mr%20Cat%20-%202707.pdf",
     desc:"Proposta comercial do fornecedor TOTVS (produto VarejOnline)."},
-  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"TI",
+  {sec:"prop", code:"DOC11", id:"12601653364", titulo:"Proposta – Linx (Seta)", tipo:"PDF", cls:"b-pdf", st:"done", area:"TI", data:"28/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127674531/MR%20CAT%20&%20LINX%20-%20DECK%20COMERCIAL%20-%20V1%20-06.03.pdf",
     desc:"Proposta comercial do fornecedor Linx (produto Seta)."},
-  {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"todo", area:"Compras",
+  {sec:"prop", code:"DOC12", id:"12601653365", titulo:"Proposta – DataSystem (Use)", tipo:"PDF", cls:"b-pdf", st:"done", area:"Compras", data:"28/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127675066/Proposta%20Comercial_Mr.%20Cat_10.07.26.pdf",
     desc:"Proposta comercial do fornecedor DataSystem (produto Use)."},
-  {sec:"prop", code:"DOC18", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+  {sec:"prop", code:"DOC18", id:"12582271848", titulo:"Ata de Reunião – Benchmarking Veja", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706800/ATA%20-%20Varejonline%20-%20Experiencia%20-%20TI%20-%20VEJA%2003-07-2026.docx",
     desc:"Ata do benchmarking sobre experiência de PDV/sistema (Veja)."},
-  {sec:"prop", code:"DOC19", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI",
+  {sec:"prop", code:"DOC19", id:"12582235067", titulo:"Ata de Reunião – Benchmarking Loccitane", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos · TI", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122707101/ATA%20-%20Benchmarking%20-%20VarejOnline%20-%2016-07-2026.docx",
     desc:"Ata do benchmarking sobre experiência de PDV/sistema (Loccitane)."},
-  {sec:"prop", code:"DOC24", id:"12640432004", titulo:"Ata de Reunião – Benchmarking Franqueado (Carlinhos)", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos",
+  {sec:"prop", code:"DOC24", id:"12640432004", titulo:"Ata de Reunião – Benchmarking Franqueado (Carlinhos)", tipo:"DOCX", cls:"b-docx", st:"done", area:"Projetos", data:"27/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136936418/ATA%20-%20Varejo%20Online%20-%20Franqueado%20Carlos%20-%2022-07-2026.docx",
     desc:"Ata do benchmarking com franqueado (Carlinhos) sobre experiência de PDV/sistema."},
 
   /* Iniciação */
-  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
+  {sec:"ini", code:"DOC01", id:"12582002114", titulo:"Termo de Abertura do Projeto", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos", file:null, nofile:true, data:"28/07/2026",
     desc:"Autorização formal do projeto: objetivos, justificativa, sponsor, marcos e restrições de alto nível."},
-  {sec:"ini", code:"DOC21", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127354299/Melhoria_de_apresenta__o_de_usu_rios.pptx",
+  {sec:"ini", code:"DOC21", id:"12582313540", titulo:"Mapeamento de Usuários do Projeto", tipo:"PPTX", cls:"b-pptx", st:"done", area:"Projetos", file:null, nofile:true, data:"04/08/2026",
     desc:"Mapeamento dos participantes por frente, com Key Users, áreas e papéis (partes interessadas)."},
-  {sec:"ini", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136941139/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
+  {sec:"ini", code:"DOC08", id:"12581890831", titulo:"Avaliação de Fornecedores – Consolidado", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157175380/Consolidado_Avaliacao_Fornecedores_PDV_V7.xlsx",
     desc:"Planilha-mestre: metodologia, notas por critério e categoria, ranking por área e resumo executivo."},
-  {sec:"ini", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3136983895/Planilha_Custos_TOTVS_x_DataSystem_MrCatV2.xlsx",
+  {sec:"ini", code:"DOC23", id:"12603872247", titulo:"Consolidado de Custos – VarejOnline × DataSystem", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157182209/Planilha_Custos_TOTVS_x_DataSystem_MrCatV2.xlsx",
     desc:"Comparativo consolidado de custos entre VarejOnline (TOTVS) e DataSystem, apoio à decisão."},
-  {sec:"ini", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos",
+  {sec:"ini", code:"DOC22", id:"12600869517", titulo:"Condições Comerciais – Alterdata", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3127358432/Condi%C3%A7%C3%B5es%20Comerciais.pdf",
     desc:"Condições comerciais do fornecedor atual (Alterdata), para referência e comparação com as propostas."},
-  {sec:"ini", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null,
+  {sec:"ini", code:"DOC15", id:"12582217680", titulo:"Apresentação do Consolidado – Diretoria e Áreas Envolvidas", tipo:"PDF", cls:"b-pdf", st:"done", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157179272/Apresenta%C3%A7%C3%A3o_Final_PDV_31_07_2026_V2.pdf",
     desc:"Apresentação executiva do resultado consolidado da avaliação de fornecedores para diretoria e áreas envolvidas."},
 
   /* Planejamento */
-  {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos",
+  {sec:"pla", code:"DOC02", id:"12581891031", titulo:"Declaração de Escopo", tipo:"DOCX", cls:"b-docx", st:"prog", area:"Projetos", data:"20/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122555497/[PLA01]%20Declaracao%20de%20Escopo%20-%20Mudanca%20de%20PDV.docx",
     desc:"Escopo formal: objetivos, entregas, exclusões, premissas e restrições do projeto."},
-  {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122868135/[PLA02]%20EAP%20-%20Mudan%C3%A7a%20de%20PDV_V3.pptx",
+  {sec:"pla", code:"DOC03", id:"12581840578", titulo:"Estrutura Analítica do Projeto (EAP)", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157183718/[PLA02]%20EAP%20-%20Mudan%C3%A7a%20de%20PDV_V3.pptx",
     desc:"EAP em pacotes de trabalho, derivada do board de tarefas. Diagrama editável."},
-  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
+  {sec:"pla", code:"DOC04", id:"12582017396", titulo:"Matriz RACI", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null, nofile:true, data:"20/07/2026",
     desc:"Responsabilidades por entrega: Responsável, Aprovador, Consultado, Informado."},
-  {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"DOC", cls:"b-doc", st:"prog", area:"Projetos", file:null,
+  {sec:"pla", code:"DOC05", id:"12581996745", titulo:"Matriz de Riscos", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157173344/[DOC05]%20Matriz%20de%20Riscos%20-%20Projeto%20Mudan%C3%A7a%20de%20PDV_V2.xlsx",
     desc:"Identificação, avaliação e planos de resposta aos riscos do projeto."},
-  {sec:"pla", code:"DOC06", id:"12581994047", titulo:"Base de Lojas – Gerentes e Sistemas", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Cadastro · TI",
-    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122703983/LISTAGEM_SISTEMAS_FRANQUIAS_GERENTES.xlsx",
+  {sec:"pla", code:"DOC06", id:"12581994047", titulo:"Base de Lojas – Gerentes e Sistemas", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos", data:"28/07/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3140542314/LISTAGEM_SISTEMAS_FRANQUIAS_GERENTES.xlsx",
     desc:"Base de lojas (gerentes) e listagem de sistemas por loja — base para rollout, integração e migração."},
-  {sec:"pla", code:"DOC20", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos · TI",
+  {sec:"pla", code:"DOC20", id:"12582313403", titulo:"Base de Lojas – Custos Atuais Alterdata (por loja)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos · TI", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122708270/CUSTO_ALTERDATA_POR_LOJA_CRUZADO.xlsx",
     desc:"Base de lojas com o custo atual do Alterdata pago por cada loja — linha de base para comparação de custos."},
-  {sec:"pla", code:"DOC17", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos",
+  {sec:"pla", code:"DOC17", id:"12582234769", titulo:"Planilha de Custos – Cenários de Valor Total (Franqueado)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122706189/Planilha_Custos_TOTVS_VarejOnline_MrCat_Cenarios.xlsx",
     desc:"Cenários de custo com o valor total para o franqueado, apoio à decisão comercial e de contratação."},
-  {sec:"pla", code:"DOC13", id:"12581866115", titulo:"Mapa de Integrações", tipo:"PPTX", cls:"b-pptx", st:"done", area:"TI · Projetos",
+  {sec:"pla", code:"DOC13", id:"12581866115", titulo:"Mapa de Integrações", tipo:"PPTX", cls:"b-pptx", st:"done", area:"TI · Projetos", data:"22/07/2026",
     file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3122530995/Redesenho_de_integra__es_PDV.pptx",
     desc:"Fluxo de integrações entre o novo PDV e os sistemas da empresa. Shapes nativos editáveis."},
-  {sec:"pla", code:"DOC16", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"todo", area:"Projetos", file:null,
+  {sec:"pla", code:"DOC16", id:"12582304351", titulo:"Apresentação de Kickoff", tipo:"PPTX", cls:"b-pptx", st:"prog", area:"Projetos", file:null, nofile:true, data:"04/08/2026",
     desc:"Apresentação de abertura do projeto para alinhamento inicial com as equipes envolvidas."},
 
   /* Execução */
-  {sec:"exe", code:"DOC25", id:"12716738763", titulo:"Cenário de Teste (Modelo)", tipo:"XLSX", cls:"b-xlsx", st:"prog", area:"Projetos · TI", file:null,
-    desc:"Modelo/template para cadastro e acompanhamento dos cenários de teste da homologação do PDV."},
+  {sec:"exe", code:"DOC26", id:"12716738763", titulo:"Cenário de Teste (Modelo)", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos · TI", file:null, data:"04/08/2026",
+    desc:"Modelo/template para cadastro e acompanhamento dos cenários de teste da homologação do PDV (contém modelo + roteiro de aceite)."},
 
   /* Monitoramento & Controle */
-  {sec:"mon", code:"DOC14", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null,
+  {sec:"mon", code:"DOC25", id:"12652257207", titulo:"Matriz de Decisões", tipo:"XLSX", cls:"b-xlsx", st:"done", area:"Projetos", data:"04/08/2026",
+    file:"https://mr-cat-squadhub.monday.com/protected_static/21507468/resources/3157182712/Matriz%20de%20Decisoes%20-%20Projeto%20PDV.xlsx",
+    desc:"Registro das decisões do projeto: contexto, alternativas, decisão, responsável e data."},
+  {sec:"mon", code:"DOC14", id:"12582000947", titulo:"Avaliação de Equipe", tipo:"DOC", cls:"b-doc", st:"todo", area:"Projetos", file:null, nofile:true, data:"22/07/2026",
     desc:"Avaliação da equipe do projeto ao longo das fases."}
 ];
 /* Links (não contam como entregáveis) */
@@ -237,16 +242,17 @@ function makeCard(d){
   const a = document.createElement("a");
   a.className = "card"; a.href = d.link ? d.url : (d.file ? d.file : (B + d.id)); a.target = "_blank"; a.rel = "noopener";
   const codeHtml = d.code ? '<span class="code">'+d.code+'</span>' : '';
-  let foot;
+  let foot, dateHtml = '';
   if(d.link){
     foot = '<div class="foot"><span>'+(d.tipo==="MONDAY"?"Monday":"Link externo")+'</span><span>↗ Abrir</span></div>';
   } else {
     const acao = d.file ? "↗ Abrir arquivo" : "↗ Abrir no Monday";
     foot = '<div class="foot"><span class="st '+d.st+'"><span class="dot"></span>'+STLABEL[d.st]+'</span><span>'+d.area+'</span><span>'+acao+'</span></div>';
+    if(d.data) dateHtml = '<div class="cdate">Última inclusão: '+d.data+'</div>';
   }
   a.innerHTML =
     '<div class="top"><div>'+codeHtml+'<h3>'+d.titulo+'</h3></div><span class="badge '+d.cls+'">'+d.tipo+'</span></div>'+
-    '<p>'+d.desc+'</p>'+ foot;
+    '<p>'+d.desc+'</p>'+ foot + dateHtml;
   return a;
 }
 
@@ -282,7 +288,7 @@ FOLDERS.forEach(f => {
 
 /* Painel do topo — conta só entregáveis (DOCS) */
 (function(){
-  const total=DOCS.length, anex=DOCS.filter(d=>d.file).length, sem=total-anex;
+  const total=DOCS.length, anex=DOCS.filter(d=>!d.nofile).length, sem=total-anex;
   document.getElementById("s-total").textContent=total;
   document.getElementById("s-anex").textContent=anex;
   document.getElementById("s-sem").textContent=sem;
